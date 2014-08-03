@@ -5,7 +5,6 @@
 " Language:     Ls-Dyna FE solver input file
 " Maintainer:   Bartosz Gradzik (bartosz.gradzik@hotmail.com)
 " Contribution: Jakub Pajerski
-" Personal Modifications by Praphulla Chandra
 " Last Change:  1st of January 2014
 "
 " History: v1.0.0: From gradzikb.
@@ -23,21 +22,6 @@ endif
 let b:current_syntax = "lsdyna"
 
 "-------------------------------------------------------------------------------
-"    Keywords
-"-------------------------------------------------------------------------------
-
-syntax match LsDynaComment '^[$#].*$'
-syntax match LsDynaTitle '^[a-zA-Z?.].*$' contained
-
-syntax match LsDynaKeyword '^*[a-zA-Z].*$' contains=LsDynaKeywordOption
-syntax match LsDynaKeywordOption '_.*$' contained
-
-hi def link LsDynaComment Comment
-hi def link LsDynaKeyword Statement
-hi def link LsDynaKeywordOption Type
-hi def link LsDynaTitle Identifier
-
-"-------------------------------------------------------------------------------
 "    Standard Ls-Dyna keyword
 "-------------------------------------------------------------------------------
 
@@ -50,9 +34,7 @@ syntax match LsDynaStd610Col  '\%51c.\{10}' contained
 syntax match LsDynaStd710Col  '\%61c.\{10}' contained
 syntax match LsDynaStd810Col  '\%71c.\{10}' contained
 
-syntax cluster LsDynaStdKeywordCluster add=LsDynaComment
-syntax cluster LsDynaStdKeywordCluster add=LsDynaKeyword
-syntax cluster LsDynaStdKeywordCluster add=LsDynaTitle
+
 syntax cluster LsDynaStdKeywordCluster add=LsDynaStd110Col
 syntax cluster LsDynaStdKeywordCluster add=LsDynaStd210Col
 syntax cluster LsDynaStdKeywordCluster add=LsDynaStd310Col
@@ -61,6 +43,9 @@ syntax cluster LsDynaStdKeywordCluster add=LsDynaStd510Col
 syntax cluster LsDynaStdKeywordCluster add=LsDynaStd610Col
 syntax cluster LsDynaStdKeywordCluster add=LsDynaStd710Col
 syntax cluster LsDynaStdKeywordCluster add=LsDynaStd810Col
+syntax cluster LsDynaStdKeywordCluster add=LsDynaComment
+syntax cluster LsDynaStdKeywordCluster add=LsDynaKeyword
+syntax cluster LsDynaStdKeywordCluster add=LsDynaTitle
 
 syntax region LsDynaStdKeyword start=/^\*[a-zA-z]/ end=/^\*/me=s-1
  \ contains=@LsDynaStdKeywordCluster
@@ -76,6 +61,24 @@ hi def link LsDynaStd510Col Ignore
 hi def link LsDynaStd710Col Ignore
 
 "-------------------------------------------------------------------------------
+"    Keywords
+"    Note that LsDynaComment and LsDynaKeyword must be repeated after every
+"    alternate card type (node, elem) in order to capture comments or keywords
+"    within that card. Positioning of this section after matching the data
+"    lines is vital (i.e. don't move this.)
+"-------------------------------------------------------------------------------
+
+syntax match LsDynaComment '^[$#].*$' contained
+syntax match LsDynaTitle '^[a-zA-Z?.].*$' contained
+syntax match LsDynaKeyword '^*[a-zA-Z].*$' contains=LsDynaKeywordOption contained
+syntax match LsDynaKeywordOption '_.*$' contained
+
+hi def link LsDynaComment Comment
+hi def link LsDynaKeyword Statement
+hi def link LsDynaKeywordOption Type
+hi def link LsDynaTitle Identifier
+
+"-------------------------------------------------------------------------------
 "    *NODE
 "-------------------------------------------------------------------------------
 
@@ -86,14 +89,14 @@ syntax match LsDynaNode416Col  '\%41c.\{16}' contained
 syntax match LsDynaNode508Col  '\%57c.\{8}' contained
 syntax match LsDynaNode608Col  '\%65c.\{8}' contained
 
-syntax cluster LsDynaNodeCluster add=LsDynaComment
-syntax cluster LsDynaNodeCluster add=LsDynaKeyword
 syntax cluster LsDynaNodeCluster add=LsDynaNode108Col
 syntax cluster LsDynaNodeCluster add=LsDynaNode216Col
 syntax cluster LsDynaNodeCluster add=LsDynaNode316Col
 syntax cluster LsDynaNodeCluster add=LsDynaNode416Col
 syntax cluster LsDynaNodeCluster add=LsDynaNode508Col
 syntax cluster LsDynaNodeCluster add=LsDynaNode608Col
+syntax cluster LsDynaNodeCluster add=LsDynaComment
+syntax cluster LsDynaNodeCluster add=LsDynaKeyword
 
 syntax region LsDynaNodeKeyword start=/\c^\*NODE *$/ end=/^\*/me=s-1
  \ contains=@LsDynaNodeCluster
@@ -107,6 +110,9 @@ hi def link LsDynaNode608Col Todo
 hi def link LsDynaNode108Col Ignore
 hi def link LsDynaNode316Col Ignore
 hi def link LsDynaNode508Col Ignore
+
+syntax match LsDynaComment '^[$#].*$' contained
+"syntax match LsDynaKeyword '^*[a-zA-Z].*$' contains=LsDynaKeywordOption contained
 
 "-------------------------------------------------------------------------------
 "    Most *ELEMENT_
@@ -123,8 +129,6 @@ syntax match LsDynaEL808Col  '\%57c.\{8}' contained
 syntax match LsDynaEL908Col  '\%65c.\{8}' contained
 syntax match LsDynaEL1008Col '\%73c.\{8}' contained
 
-syntax cluster LsDynaELCluster add=LsDynaComment
-syntax cluster LsDynaELCluster add=LsDynaKeyword
 syntax cluster LsDynaELCluster add=LsDynaEL108Col
 syntax cluster LsDynaELCluster add=LsDynaEL208Col
 syntax cluster LsDynaELCluster add=LsDynaEL308Col
@@ -135,6 +139,8 @@ syntax cluster LsDynaELCluster add=LsDynaEL708Col
 syntax cluster LsDynaELCluster add=LsDynaEL808Col
 syntax cluster LsDynaELCluster add=LsDynaEL908Col
 syntax cluster LsDynaELCluster add=LsDynaEL1008Col
+syntax cluster LsDynaELCluster add=LsDynaComment
+syntax cluster LsDynaELCluster add=LsDynaKeyword
 
 syntax region LsDynaELKeyword start=/\c^\*ELEMENT_[a-zA-Z]\+ *$/ end=/^\*/me=s-1
  \ contains=@LsDynaELCluster
@@ -152,5 +158,8 @@ hi def link LsDynaEL308Col Ignore
 hi def link LsDynaEL508Col Ignore
 hi def link LsDynaEL708Col Ignore
 hi def link LsDynaEL908Col Ignore
+
+syntax match LsDynaComment '^[$#].*$' contained
+syntax match LsDynaKeyword '^*[a-zA-Z].*$' contains=LsDynaKeywordOption contained
 
 "-------------------------------------EOF---------------------------------------
