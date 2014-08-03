@@ -1,0 +1,55 @@
+"-------------------------------------BOF---------------------------------------
+"
+" Vim syntax file
+"
+" Language:     Ls-Dyna FE solver input file
+" Maintainer:   Praphulla Chandra
+" Last Change:  3rd of August 2014
+"
+"-------------------------------------------------------------------------------
+
+" if syntax is already loaded
+if exists("b:current_syntax")
+  finish
+endif
+let b:current_syntax = "rcforc"
+
+"-------------------------------------------------------------------------------
+"    rcforc keywords
+"-------------------------------------------------------------------------------
+syntax match rcforcKey   '\%1c.\{10}'
+syntax match contactnum  '\%13c.\{7}'
+
+hi def link rcforcKey Statement
+hi def link contactnum Type
+
+"-------------------------------------------------------------------------------
+"    rcforc data line
+"-------------------------------------------------------------------------------
+
+syntax match rcforc1Col  '\%21c.\{16}'
+syntax match rcforc2Col  '\%39c.\{14}'
+syntax match rcforc3Col  '\%55c.\{14}'
+syntax match rcforc4Col  '\%71c.\{14}'
+syntax match rcforc5Col  '\%86c.\{17}'
+
+hi def link rcforc2Col Todo
+hi def link rcforc4Col Todo
+
+hi def link rcforc1Col Ignore
+hi def link rcforc3Col Ignore
+hi def link rcforc5Col Ignore
+
+"-------------------------------------------------------------------------------
+"    rcforc comment
+"-------------------------------------------------------------------------------
+
+syntax match rcforcComment '^   .*$'
+syntax match rcforcComment '^{.*$'
+syntax match rcforcComment '^ Entity.*$'
+syntax match rcforcundef ' *interface number.*$'
+
+hi def link rcforcComment Comment
+hi def link rcforcundef Error
+
+"-------------------------------------EOF---------------------------------------
