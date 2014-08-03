@@ -21,6 +21,10 @@ if exists("b:current_syntax")
 endif
 let b:current_syntax = "lsdyna"
 
+"To match any starting comments.
+syntax match StartComment '^[$#].*$'
+hi def link StartComment Comment
+
 "-------------------------------------------------------------------------------
 "    Standard Ls-Dyna keyword
 "-------------------------------------------------------------------------------
