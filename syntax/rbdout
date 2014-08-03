@@ -1,0 +1,45 @@
+"-------------------------------------BOF---------------------------------------
+"
+" Vim syntax file
+"
+" Language:     Ls-Dyna FE solver input file
+" Maintainer:   Praphulla Chandra
+" Last Change:  3rd of August 2014
+"
+"-------------------------------------------------------------------------------
+
+" if syntax is already loaded
+if exists("b:current_syntax")
+  finish
+endif
+let b:current_syntax = "rbdout"
+
+"-------------------------------------------------------------------------------
+"    rbdout keywords
+"-------------------------------------------------------------------------------
+" To match time data.
+syntax match TimeHeader '^  r i g i d   b o d y.*$' contains=cycletime
+syntax match cycletime 'cycle= .*$' contained
+
+hi def link TimeHeader Statement
+hi def link cycletime Type
+
+"To match rigid body ID data and subsections.
+syntax match NodalRBDHeader '^ nodal rigid body.*$' contains=rbdID
+syntax match rbdID '  .*$' contained
+syntax match Sections '^.*principal .*$'
+
+hi def link NodalRBDHeader Statement
+hi def link rbdID Type
+hi def link Sections Identifier
+
+"To match table 1st row and column.
+syntax keyword rbdDataKey coordinates displacements velocities accelerations
+syntax match rbdtabhead '^.*-rot.*-rot.*-rot.*$'
+syntax match rbdtabhead 'row [123]'
+syntax match rbdtabhead '^\s*a\s*b\s*c\s*$'
+
+hi def link rbdDataKey PreProc
+hi def link rbdtabhead PreProc
+
+"-------------------------------------EOF---------------------------------------
