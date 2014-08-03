@@ -111,8 +111,9 @@ hi def link LsDynaNode108Col Ignore
 hi def link LsDynaNode316Col Ignore
 hi def link LsDynaNode508Col Ignore
 
+"Repeated keywords and comments matching. Do not remove or move.
 syntax match LsDynaComment '^[$#].*$' contained
-"syntax match LsDynaKeyword '^*[a-zA-Z].*$' contains=LsDynaKeywordOption contained
+syntax match LsDynaKeyword '^*[a-zA-Z].*$' contains=LsDynaKeywordOption contained
 
 "-------------------------------------------------------------------------------
 "    Most *ELEMENT_
@@ -159,6 +160,7 @@ hi def link LsDynaEL508Col Ignore
 hi def link LsDynaEL708Col Ignore
 hi def link LsDynaEL908Col Ignore
 
+"Repeated keywords and comments matching. Do not remove or move.
 syntax match LsDynaComment '^[$#].*$' contained
 syntax match LsDynaKeyword '^*[a-zA-Z].*$' contains=LsDynaKeywordOption contained
 
