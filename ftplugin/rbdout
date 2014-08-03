@@ -1,0 +1,48 @@
+"-------------------------------------BOF---------------------------------------
+"
+" Vim filetype plugin file
+"
+" Language:     LS-Dyna rbdout output file
+" Maintainer:   Praphulla Chandra
+" Last Change:  3rd of August 2014
+" Version:      1.0.0
+"
+"-------------------------------------------------------------------------------
+"    FILETYPE PLUGIN SETTINGS
+"-------------------------------------------------------------------------------
+
+" check if the plugin is already load into current buffer
+if exists("b:did_ftplugin") | finish | endif
+" set flag when ls-dyna filetype plugin is loaded
+let b:did_ftplugin = 1
+" save current compatible settings
+let s:cpo_save = &cpo
+" reset vim to default settings
+set cpo&vim
+
+"load colors
+colorscheme solarized
+
+"-------------------------------------------------------------------------------
+"    FOLDING
+"-------------------------------------------------------------------------------
+
+" Create new fold at every line starting with slave.
+setlocal foldexpr=GetFold()
+setlocal foldmethod=expr
+setlocal foldminlines=1
+
+function! GetFold()
+	if match(getline (v:lnum), '^  r i g i d   b o d y   m o t i o n') >= 0
+		return '>1'
+	elseif match(getline (v:lnum), '^ nodal rigid body') >= 0
+		return '>2'
+	else
+		return '='
+	endif
+endfunction
+
+"-------------------------------------------------------------------------------
+" restore vim functions
+let &cpo = s:cpo_save
+"-------------------------------------EOF---------------------------------------
